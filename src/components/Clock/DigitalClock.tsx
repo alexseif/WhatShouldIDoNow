@@ -1,8 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import styles from './DigitalClock.module.scss';
 
+const DATE_FORMAT_OPTIONS: Intl.DateTimeFormatOptions = {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+};
+
+/**
+ * Formats a Date object into two-digit HH, MM, SS strings and a localized full date representation.
+ *
+ * @param date - The Date object to format.
+ * @returns Object containing formatted hours, minutes, seconds, and date string.
+ */
+const formatClockDisplay = (date: Date) => {
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const seconds = date.getSeconds().toString().padStart(2, '0');
+  const formattedDate = date.toLocaleDateString('en-US', DATE_FORMAT_OPTIONS);
+
+  return { hours, minutes, seconds, formattedDate };
+};
+
+/**
+ * DigitalClock Component
+ * Displays real-time ticking clock (HH:MM:SS) and date.
+ * Throttles interval ticking when the document/tab is hidden to optimize performance and CPU usage.
+ */
 export const DigitalClock: React.FC = () => {
-  const [time, setTime] = useState<Date>(new Date());
+  const [time, setTime] = useState<Date>(() => new Date());
 
   useEffect(() => {
     let timer: ReturnType<typeof setInterval> | null = null;
@@ -41,17 +68,7 @@ export const DigitalClock: React.FC = () => {
     };
   }, []);
 
-  const hours = time.getHours().toString().padStart(2, '0');
-  const minutes = time.getMinutes().toString().padStart(2, '0');
-  const seconds = time.getSeconds().toString().padStart(2, '0');
-
-  const options: Intl.DateTimeFormatOptions = {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  };
-  const formattedDate = time.toLocaleDateString('en-US', options);
+  const { hours, minutes, seconds, formattedDate } = formatClockDisplay(time);
 
   return (
     <div className={styles.clockContainer}>
@@ -66,3 +83,4 @@ export const DigitalClock: React.FC = () => {
     </div>
   );
 };
+
