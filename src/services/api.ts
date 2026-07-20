@@ -15,10 +15,19 @@ export const fetchActiveTemporalBlocks = async (): Promise<AncientTimeSystemColu
       headers['Authorization'] = `Bearer ${token}`;
     }
 
-    const response = await fetch(`${API_BASE_URL}/temporal-blocks`, {
-      method: 'GET',
-      headers,
-    });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+    let response: Response;
+    try {
+      response = await fetch(`${API_BASE_URL}/temporal-blocks`, {
+        method: 'GET',
+        headers,
+        signal: controller.signal,
+      });
+    } finally {
+      clearTimeout(timeoutId);
+    }
 
     if (!response.ok) {
       throw new Error(`HTTP Error ${response.status}: ${response.statusText}`);
