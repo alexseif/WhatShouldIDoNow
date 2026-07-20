@@ -1,0 +1,21 @@
+@use '../../styles/mixins' as *;
+
+.footer {
+  margin-top: auto;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+
+  .link {
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: color var(--transition-fast);
+
+    &:hover {
+      color: var(--accent-primary);
+    }
+  }
+}

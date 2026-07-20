@@ -1,0 +1,46 @@
+// SCSS Tokens & Design System
+
+:root {
+  // Light Theme (Calculated High-Contrast Contrast)
+  --bg-primary: #fcfcfc;
+  --bg-surface-elevated: #ffffff;
+  
+  --text-primary: #171717;
+  --text-secondary: #52525b;
+  --text-muted: #a1a1aa;
+  
+  --accent-gold: #B8860B; // Dark Goldenrod
+  --accent-gold-hover: #966d09;
+  --accent-gold-glow: rgba(184, 134, 11, 0.15);
+  
+  --border-subtle: #e5e5e5;
+  --border-gold: rgba(184, 134, 11, 0.35);
+  
+  --font-heading: 'Inter', system-ui, sans-serif; // Primary Headings: Inter (Sans)
+  --font-body: 'Playfair Display', Georgia, serif; // Secondary Body: Playfair Display (Serif)
+  --font-arabic: 'Amiri', serif;
+  --font-mono: 'Geist Mono', monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-full: 9999px;
+
+  --transition-theme: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme='dark'] {
+  // Dark Theme
+  --bg-primary: #050505; // Deep Black
+  --bg-surface-elevated: #0f0f0f;
+  
+  --text-primary: #e8e8e8; // Crisp White
+  --text-secondary: #a3a3a3;
+  --text-muted: #737373;
+  
+  --accent-gold: #B8860B; // Dark Goldenrod
+  --accent-gold-hover: #d4af37;
+  --accent-gold-glow: rgba(184, 134, 11, 0.25);
+  
+  --border-subtle: #1f1f1f;
+  --border-gold: rgba(184, 134, 11, 0.4);
+}
