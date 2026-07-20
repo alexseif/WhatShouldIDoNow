@@ -25,7 +25,7 @@
   text-align: left;
 
   .systemTitle {
-    font-family: var(--font-heading); // Inter (Sans)
+    font-family: var(--font-primary);
     font-size: 1.25rem;
     font-weight: 700;
     color: var(--text-primary);
@@ -49,8 +49,8 @@
     text-align: left;
 
     .bulletItem {
-      font-family: var(--font-body); // Playfair Display (Serif)
-      font-size: 1rem;
+      font-family: var(--font-primary);
+      font-size: 0.95rem;
       font-weight: 400;
       color: var(--text-secondary);
       display: flex;
@@ -69,9 +69,19 @@
   }
 }
 
+.unavailableMessage {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-muted);
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  margin: 0 auto;
+}
+
 .loading {
   text-align: center;
-  padding: 3rem;
+  padding: 3rem 1rem;
   color: var(--text-muted);
   font-family: var(--font-mono);
   letter-spacing: 0.05em;

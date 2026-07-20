@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { AncientTimeSystemColumn } from '../../types/temporal';
-import { fetchActiveTemporalBlocks, FALLBACK_ANCIENT_SYSTEMS } from '../../services/api';
+import { fetchActiveTemporalBlocks } from '../../services/api';
 import styles from './TemporalGrid.module.scss';
 
 export const TemporalGrid: React.FC = () => {
-  const [systems, setSystems] = useState<AncientTimeSystemColumn[]>(FALLBACK_ANCIENT_SYSTEMS);
+  const [systems, setSystems] = useState<AncientTimeSystemColumn[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -26,7 +26,11 @@ export const TemporalGrid: React.FC = () => {
   }, []);
 
   if (isLoading) {
-    return <div className={styles.loading}>Synthesizing Ancient Wisdom Alignment...</div>;
+    return <div className={styles.loading}>Connecting to Temporal Grid...</div>;
+  }
+
+  if (systems.length === 0) {
+    return <div className={styles.unavailableMessage}>Not available at the moment.</div>;
   }
 
   return (

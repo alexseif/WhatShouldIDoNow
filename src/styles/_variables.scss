@@ -1,7 +1,7 @@
 // SCSS Tokens & Design System
 
 :root {
-  // Light Theme (Calculated High-Contrast Contrast)
+  // Light Theme
   --bg-primary: #fcfcfc;
   --bg-surface-elevated: #ffffff;
   
@@ -16,8 +16,7 @@
   --border-subtle: #e5e5e5;
   --border-gold: rgba(184, 134, 11, 0.35);
   
-  --font-heading: 'Inter', system-ui, sans-serif; // Primary Headings: Inter (Sans)
-  --font-body: 'Playfair Display', Georgia, serif; // Secondary Body: Playfair Display (Serif)
+  --font-primary: 'Inter', system-ui, -apple-system, sans-serif; // Single primary font everywhere
   --font-arabic: 'Amiri', serif;
   --font-mono: 'Geist Mono', monospace;
 

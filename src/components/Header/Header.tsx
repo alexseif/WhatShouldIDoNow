@@ -59,14 +59,14 @@ export const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
               ✕
             </button>
 
-            <h2 className={styles.panelTitle}>Human Energy Alignment</h2>
+            <h2 className={styles.panelTitle}>What Should I Do Now</h2>
             
             <p className={styles.description}>
-              Aligning your present moment with ancient wisdom to reveal the optimal focus, energy, and activity for right now.
+              What Should I Do Now aligns your present moment with the optimal focus, energy, and activity for right now based on ancient wisdom.
             </p>
 
             <div className={styles.attribution}>
-              Crafted by <a href="https://alexseif.com" target="_blank" rel="noopener noreferrer">Alex Seif</a> for What Should I Do Now.
+              Curated by <a href="https://alexseif.com" target="_blank" rel="noopener noreferrer">Alex Seif</a>.
             </div>
           </div>
         </div>

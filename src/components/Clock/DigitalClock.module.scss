@@ -10,7 +10,7 @@
 
   .time {
     font-family: var(--font-mono);
-    font-size: clamp(3.5rem, 9.5vw, 6.5rem); // Refined, decreased clock size
+    font-size: clamp(3.5rem, 9.5vw, 6.5rem);
     font-weight: 700;
     color: var(--text-primary);
     letter-spacing: 0.02em;
@@ -20,6 +20,7 @@
     span.colon {
       color: var(--accent-gold);
       opacity: 0.9;
+      margin: 0 0.15em;
     }
   }
 

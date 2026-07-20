@@ -3,37 +3,6 @@ import { AncientTimeSystemColumn } from '../types/temporal';
 const API_BASE_URL = import.meta.env.VITE_WUWEI_API_URL || 'https://wuwei.alexseif.com/api/v1';
 const TOKEN_STORAGE_KEY = import.meta.env.VITE_AUTH_TOKEN_KEY || 'wuwei_auth_token';
 
-// Default fallback systems
-export const FALLBACK_ANCIENT_SYSTEMS: AncientTimeSystemColumn[] = [
-  {
-    id: 'egyptian-decan',
-    systemName: 'Egyptian Decan & Temporal Hours',
-    bulletPoints: [
-      'Horus Solar Hour II',
-      'Decan of Sirius Governance',
-      'Vitality, Action & Solar Alignment',
-    ],
-  },
-  {
-    id: 'tcm-meridian',
-    systemName: 'TCM Meridian Energy Peak',
-    bulletPoints: [
-      'Heart Meridian Peak Flow',
-      'Circulation & Spirit (Shen)',
-      'Supreme Clarity & Joy',
-    ],
-  },
-  {
-    id: 'ayurvedic-tattwa',
-    systemName: 'Ayurvedic Tattwas & Dosha Cycles',
-    bulletPoints: [
-      'Tejas (Fire Element Tattva)',
-      'Pitta Dosha Phase',
-      'Transformation & Internal Agni',
-    ],
-  },
-];
-
 export const fetchActiveTemporalBlocks = async (): Promise<AncientTimeSystemColumn[]> => {
   try {
     const token = typeof window !== 'undefined' ? localStorage.getItem(TOKEN_STORAGE_KEY) : null;
@@ -59,31 +28,56 @@ export const fetchActiveTemporalBlocks = async (): Promise<AncientTimeSystemColu
     const rawData = json.data || json;
 
     if (Array.isArray(rawData) && rawData.length > 0) {
-      // Dynamic rendering of all systems returned by the backend API
       return rawData.map((item: any, index: number) => {
-        const title = item.systemName || item.system || item.name || `System ${index + 1}`;
-        const points: string[] = [];
+        // Extract system title directly from item.tags["Time System"] array
+        let systemTitle = '';
+        if (item.tags && item.tags['Time System']) {
+          const ts = item.tags['Time System'];
+          systemTitle = Array.isArray(ts) ? ts[0] : ts;
+        }
 
-        if (item.title) points.push(item.title);
-        if (item.primaryAttribute) points.push(item.primaryAttribute);
-        if (Array.isArray(item.tags)) {
-          item.tags.forEach((t: any) => {
-            const str = typeof t === 'string' ? t : t.name;
-            if (str && !points.includes(str)) points.push(str);
+        if (!systemTitle) {
+          systemTitle = item.systemName || item.system || item.name || `System ${index + 1}`;
+        }
+
+        // Collect all tag values (excluding 'Time System') as bullet points
+        const points: string[] = [];
+        if (item.tags && typeof item.tags === 'object') {
+          Object.entries(item.tags).forEach(([key, val]) => {
+            if (key !== 'Time System') {
+              if (Array.isArray(val)) {
+                val.forEach((v) => {
+                  if (typeof v === 'string' && v.trim()) points.push(v.trim());
+                });
+              } else if (typeof val === 'string' && val.trim()) {
+                points.push(val.trim());
+              }
+            }
+          });
+        }
+
+        // If no bullet points were found in tags, parse from item.name tab-separated values
+        if (points.length === 0 && item.name) {
+          const parts = item.name.split('\t');
+          parts.forEach((part: string) => {
+            const trimmed = part.trim();
+            if (trimmed && !trimmed.match(/am|pm/i)) {
+              points.push(trimmed);
+            }
           });
         }
 
         return {
-          id: item.id || `sys-${index}`,
-          systemName: title,
+          id: item.id ? String(item.id) : `sys-${index}`,
+          systemName: systemTitle,
           bulletPoints: points.length > 0 ? points : ['Active Energy State'],
         };
       });
     }
 
-    return FALLBACK_ANCIENT_SYSTEMS;
+    return [];
   } catch (error) {
-    console.warn('Wuwei API offline or unreachable. Using fallback systems:', error);
-    return FALLBACK_ANCIENT_SYSTEMS;
+    console.warn('Wuwei API request failed:', error);
+    return [];
   }
 };

@@ -1,7 +1,7 @@
 # Objective: What Should I Do Now
 
 ## Project Vision
-**What Should I Do Now** (`whatshouldidonow.alexseif.com`) is a real-time, minimalist page designed to align your present moment with the optimal focus, energy, and activity for right now base on ancient wisdom.
+**What Should I Do Now** (`whatshouldidonow.alexseif.com`) aligns your present moment with the optimal focus, energy, and activity for right now base on ancient wisdom.
 
 Rather than relying on modern arbitrary clock schedules, **What Should I Do Now** dynamically synthesizes real-time temporal energy states fetched from the Wuwei database.
 
